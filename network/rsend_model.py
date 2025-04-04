@@ -2,13 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import cv2
-# from ptflops import get_model_complexity_info
-# import torchvision.models as models
-# from thop import profile
-# from fvcore.nn import FlopCountAnalysis, parameter_count_table
-# from torchprofile import profile_macs
-# from torchstat import stat
-# from torchviz import make_dot
        
     
 class ResidualBlock(nn.Module):
@@ -234,9 +227,9 @@ class IlluminationEnhancerUNet(nn.Module):
         return output
 
 
-class RetinexUnet(nn.Module):
+class RSEND(nn.Module):
     def __init__(self, stage=1):
-        super(RetinexUnet, self).__init__()
+        super(RSEND, self).__init__()
         self.stage = stage
         self.decompose = DecomposeNet()
         self.illumination_enhancer = IlluminationEnhancerUNet()
@@ -253,8 +246,8 @@ class RetinexUnet(nn.Module):
             reconstruct1 = I_map * torch.concat([enhanced_I_low, enhanced_I_low, enhanced_I_low], dim=1) + low
             reconstruct = self.denoise(reconstruct1)
             low = reconstruct
-        return I_low1, I_map, I_low, enhanced_I_low1, enhanced_I_low, reconstruct1, reconstruct
-        # return reconstruct
+        # return I_low1, I_map, I_low, enhanced_I_low1, enhanced_I_low, reconstruct1, reconstruct
+        return reconstruct
 
     
 def count_parameters(model):
@@ -263,7 +256,9 @@ def count_parameters(model):
 
 
 if __name__ == "__main__":
-    model = RetinexUnet()
-    # inputs = torch.randn(1, 3, 224, 224)
+    model = RSEND()
+    inputs = torch.randn(1, 3, 224, 224)
+    out = model.forward(inputs)
+    print("Output shape:", out.shape)
     # flops = FlopCountAnalysis(model, inputs)
     # print('FlopCountAnalysis FLOPs: ', flops.total())

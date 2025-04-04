@@ -22,7 +22,7 @@ def populate_high_train_list(lowlight_images_path):
 
 	
 
-class retinexDCE_loader_train(data.Dataset):
+class RsendTrainLoader(data.Dataset):
     def __init__(self, lowlight_images_path) -> None:
         low_list = populate_low_train_list(lowlight_images_path)
         high_list = populate_high_train_list(lowlight_images_path)
@@ -59,7 +59,7 @@ class retinexDCE_loader_train(data.Dataset):
     
     
     
-class retinexDCE_loader_test(data.Dataset):
+class RsendTestLoader(data.Dataset):
     def __init__(self, lowlight_images_path, size=224) -> None:
         low_list = populate_low_train_list(lowlight_images_path)
         high_list = populate_high_train_list(lowlight_images_path)
