@@ -13,6 +13,6 @@
   <img src="./example/test_batch_28.jpg" alt="Image 4" style="width: 23%;">
   <img src="./example/test_batch_13_low.jpg" alt="Image 5" style="width: 23%;">
   <img src="./example/test_batch_13.jpg" alt="Image 6" style="width: 23%;">
-  
-  
+  <img src="./example/test_batch_14_low.jpg" alt="Image 7" style="width: 23%;">
+  <img src="./example/test_batch_14.jpg" alt="Image 8" style="width: 23%;">
 </div>
