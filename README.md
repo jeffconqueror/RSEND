@@ -16,3 +16,13 @@
   <img src="./example/test_batch_14_low.jpg" alt="Image 7" style="width: 23%;">
   <img src="./example/test_batch_14.jpg" alt="Image 8" style="width: 23%;">
 </div>
+
+## Create Environment
+
+```
+git clone https://github.com/jeffconqueror/RSEND.git
+conda create -n RSEND python=3.12
+conda activate RSEND
+cd RSEND
+pip install -r requirements.txt
+```

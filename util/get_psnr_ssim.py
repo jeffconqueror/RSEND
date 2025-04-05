@@ -104,53 +104,11 @@ def calculate_average_psnr_ssim(num_images, folder_path):
     average_psnr = total_psnr / num_images
     average_ssim = total_ssim / num_images
     return average_psnr, average_ssim
-
-def rename_files(folder_path, prefix):
-    for filename in os.listdir(folder_path):
-        if filename.startswith(prefix):
-            new_name = filename[len(prefix):]  # Remove the prefix
-            os.rename(os.path.join(folder_path, filename), os.path.join(folder_path, new_name))
             
-def get_top5_psnr_images(folder):
-    psnr_values = []
 
-    # Regex pattern to match files like "test_batch_i.jpg"
-    pattern = re.compile(r'test_batch_(\d+)\.jpg')
-
-    # List all files in the folder and filter out the ones that match the pattern
-    files = os.listdir(folder)
-    enhanced_images = list(filter(pattern.match, files))
-
-    # Calculate PSNR for each image and its corresponding ground truth
-    for enhanced_img in enhanced_images:
-        # Extract the base number 'i' to find the corresponding ground truth
-        base_num = pattern.match(enhanced_img).group(1)
-        gt_img = f"test_batch_{base_num}_truth.jpg"
-
-        # Read the images
-        gt_path = os.path.join(folder, gt_img)
-        enhanced_path = os.path.join(folder, enhanced_img)
-        gt_image = cv2.imread(gt_path, cv2.IMREAD_COLOR)
-        enhanced_image = cv2.imread(enhanced_path, cv2.IMREAD_COLOR)
-
-        # Check if both images were found
-        if gt_image is not None and enhanced_image is not None:
-            # Calculate PSNR
-            psnr_value = calculate_psnr(gt_image, enhanced_image)
-            psnr_values.append((enhanced_img, psnr_value))
-        else:
-            print(f"Error reading images for {base_num}.")
-
-    # Sort the PSNR values in descending order and get the top 5
-    psnr_values.sort(key=lambda x: x[1], reverse=True)
-    top5_psnr_images = psnr_values[:7]
-
-    # Print the names and PSNR values
-    for img_name, psnr in top5_psnr_images:
-        print(f"Image: {img_name}, PSNR: {psnr}")
             
 if __name__ == "__main__":
-    folder_path = './Test_image/LOLv2Syn_prune_Dsize'
+    folder_path = '/home/jingchl6/.local/RSEND/Test_images'
     num_images = 100
     average_psnr, average_ssim = calculate_average_psnr_ssim(num_images, folder_path)
     print("Average PSNR:", average_psnr)
@@ -160,5 +118,5 @@ if __name__ == "__main__":
 
     # rename_files(low_folder, "low")
     # rename_files(high_folder, "normal")
-    get_top5_psnr_images('./Test_image/LOLv2Real_prune_Dsize')
+    # get_top5_psnr_images('./Test_image/LOLv2Real_prune_Dsize')
         
