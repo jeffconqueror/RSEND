@@ -167,7 +167,7 @@ if __name__ == "__main__":
         description="Train RSEND model for low light image enhancement."
     )
     parser.add_argument('--save_dir', type=str,
-                        default="./SID",
+                        default="./SID_test",
                         help='Directory to save the model and outputs')
     parser.add_argument('--train_dataset', type=str, default="/home/jingchl6/.local/RSEND_initial/Train_data/LOLv2/Synthetic/train/",
                         help='Training dataset directory or identifier')
@@ -178,7 +178,7 @@ if __name__ == "__main__":
                         help='Device to use for training (e.g., cuda:0 or cpu)')
     parser.add_argument('--epoch', type=int, default=750,
                         help="Number of training epochs")
-    parser.add_argument('--batch_size', type=int, default=8,
+    parser.add_argument('--batch_size', type=int, default=16,
                         help="Batch size for training and validation")
     parser.add_argument('--train_SID', type=bool, default=False,
                         help="Whether to train SID model")
@@ -207,6 +207,7 @@ if __name__ == "__main__":
 
     # Start training
     train(model, train_loader, val_loader, device, args.save_dir, num_epochs=args.epoch)
-    best_weights(model, weights_folder="/home/jingchl6/.local/RSEND/weights/SID", device=device, test_dataloader=val_loader, save_dir=args.save_dir)
+    val_loader = DataLoader(val_dataset, batch_size=1, shuffle=False)
+    best_weights(model, weights_folder="./weights/SID", device=device, test_dataloader=val_loader, save_dir="./SID_test")
 
     

@@ -7,6 +7,18 @@ from torch.utils.data import DataLoader
 from network.rsend_model import RSEND
 import argparse
 
+def test_real(model, dataloader, device, save_dir):
+    model.eval() 
+    with torch.no_grad():
+        for i, low_light_imgs in enumerate(dataloader):
+            low_light_imgs = low_light_imgs.to(device)
+            low_output = model(low_light_imgs)
+            save_path1 = os.path.join(save_dir, f"test_batch_{i+1}_final.jpg")
+            save_path2 = os.path.join(save_dir, f"test_batch_{i+1}_low_original.jpg")
+            save_image(low_output, save_path1, normalize=True)
+            save_image(low_light_imgs, save_path2, normalize=True)
+
+
 def test_model(model, dataloader, device, save_dir):
     
     model.eval()  # Set the model to evaluation mode
@@ -36,7 +48,7 @@ if __name__ == "__main__":
                         default="cuda:0",
                         help='Device to use for training (e.g., cuda:0 or cpu)')
     parser.add_argument('--state_dict', type=str, 
-                        default="/home/jingchl6/.local/RSEND_initial/weights/train_prune/LOLv2Syn_prune_I_map/model_epoch_700.pth", help='Path to the state dict file')
+                        default="/home/jingchl6/.local/RSEND/weights/v2syn/model_epoch_660.pth", help='Path to the state dict file')
     args = parser.parse_args()
 
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
@@ -53,4 +65,4 @@ if __name__ == "__main__":
     test_model(model, test_dataloader, device, save_dir)
     #best v1: /home/jingchl6/.local/RSEND_initial/weights/train_prune/LOLv1_prune_Dsize_finetune/model_epoch_196.pth
     #best v2_real: /home/jingchl6/.local/RSEND_initial/weights/train_prune/LOLv2Real_prune_Dsize_onlyvgg/model_epoch_743.pth
-    #best v2_syn: /home/jingchl6/.local/RSEND_initial/weights/train_prune/LOLv2Syn_prune_I_map/model_epoch_700.pth
+    #best v2_syn: /home/jingchl6/.local/RSEND/weights/v2syn/model_epoch_660.pth
