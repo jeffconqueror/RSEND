@@ -271,15 +271,4 @@ class SIDTestDataset(data.Dataset):
         return len(self.paired_list)
     
 if __name__ == "__main__":
-    short_dir_train = '/home/jingchl6/.local/RSEND_initial/Train_data/sid_processed/train/short_sid2'
-    long_dir_train = '/home/jingchl6/.local/RSEND_initial/Train_data/sid_processed/train/long_sid2'
-
-    short_dir_test = '/home/jingchl6/.local/RSEND_initial/Train_data/sid_processed/test/short_sid2'
-    long_dir_test = '/home/jingchl6/.local/RSEND_initial/Train_data/sid_processed/test/long_sid2'
-
-    #Initialize datasets
-    train_dataset = SIDTrainDataset(short_dir_train, long_dir_train)
-    test_dataset = SIDTestDataset(short_dir_test, long_dir_test)
-
-    print(f"Train dataset size: {len(train_dataset)}")
-    print(f"Test dataset size: {len(test_dataset)}")
+    pass

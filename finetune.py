@@ -115,7 +115,6 @@ def train(model, train_loader, val_dataloader, device, save_dir, num_epochs=150)
     plot_save_path = os.path.join(save_dir, "training_validation_loss_plot.png")
     plt.savefig(plot_save_path)
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Train RSEND model for low light image enhancement."
@@ -126,13 +125,18 @@ if __name__ == "__main__":
     parser.add_argument('--device', type=str, default="cuda:0", help='Device to use for training (e.g., cuda:0 or cpu)')
     parser.add_argument('--epoch', type=int, default=150, help="Number of training epochs")
     parser.add_argument('--batch_size', type=int, default=8, help="Batch size for training and validation")
+    parser.add_argument('--state_dict', type=str, default="", help='Path to the state dict file')
     parser.add_argument('--train_SID', type=bool, default=False, help="Whether to train SID model")
     args = parser.parse_args()
+
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
 
-    # Initialize the model
+    # Initialize the model and load weights
     model = RSEND()
-
+    state_dict = torch.load(args.state_dict, map_location=device)
+    new_state_dict = {k.replace("module.", ""): v for k, v in state_dict.items()}
+    model.load_state_dict(new_state_dict)
+    model.to(device)
     train_dataset = RSENDLoaderTrain(args.train_dataset)
     val_dataset = RSENDLoaderTest(args.val_dataset)
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
@@ -140,5 +144,6 @@ if __name__ == "__main__":
 
     # Start training
     train(model, train_loader, val_loader, device, args.save_dir, num_epochs=args.epoch)
+    
 
     

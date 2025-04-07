@@ -2,15 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import cv2
-# from ptflops import get_model_complexity_info
-# import torchvision.models as models
-# from thop import profile
-# from fvcore.nn import FlopCountAnalysis, parameter_count_table
-# from torchprofile import profile_macs
-# from torchstat import stat
-# from torchviz import make_dot
        
-    
+
 class ResidualBlock(nn.Module):
     def __init__(self, channels):
         super(ResidualBlock, self).__init__()
@@ -264,6 +257,6 @@ def count_parameters(model):
 
 if __name__ == "__main__":
     model = RSEND()
-    # inputs = torch.randn(1, 3, 224, 224)
-    # flops = FlopCountAnalysis(model, inputs)
-    # print('FlopCountAnalysis FLOPs: ', flops.total())
+    inputs = torch.randn(1, 3, 224, 224)
+    outputs = model(inputs)
+    print(outputs.shape)

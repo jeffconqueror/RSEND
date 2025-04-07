@@ -1,7 +1,7 @@
 # RSEND: Retinex-based Squeeze and Excitation Network with Dark Region Detection for Efficient Low Light Image Enhancement
 
 ### News
-* **2025.3.31：** Our paper has been accepted by IJCNN 2025. Code and Models will be released soon.
+* **2025.3.31：** Our paper has been accepted by IJCNN 2025.
 
 
 
@@ -31,9 +31,14 @@ cd RSEND
 pip install -r requirements.txt
 ```
 
-## To Fit a Model
+## To Fit a Model from Beginning
 ```
 python train.py --save_dir PATH_TO_SAVE_OUTPUT --train_dataset PATH_TO_TRAINING_DATASET --val_dataset PATH_TO_VALIDATION_DATASET --device DEVICE --epoch NUM_EPOCH --batch_size BATCH_SIZE
+```
+
+## To Finetune a Model 
+```
+python finetune.py --save_dir PATH_TO_SAVE_OUTPUT --train_dataset PATH_TO_TRAINING_DATASET --val_dataset PATH_TO_VALIDATION_DATASET --device DEVICE --epoch NUM_EPOCH --batch_size BATCH_SIZE --state_dict MODEL_PATH
 ```
 
 ## To Test the Model

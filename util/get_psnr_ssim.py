@@ -108,15 +108,5 @@ def calculate_average_psnr_ssim(num_images, folder_path):
 
             
 if __name__ == "__main__":
-    folder_path = '/home/jingchl6/.local/RSEND/Test_images'
-    num_images = 100
-    average_psnr, average_ssim = calculate_average_psnr_ssim(num_images, folder_path)
-    print("Average PSNR:", average_psnr)
-    print("Average SSIM:", average_ssim)
-    # low_folder = "Train_data/VE-LOL-L-Cap-Full/test/low"
-    # high_folder = "Train_data/VE-LOL-L-Cap-Full/test/high"
-
-    # rename_files(low_folder, "low")
-    # rename_files(high_folder, "normal")
-    # get_top5_psnr_images('./Test_image/LOLv2Real_prune_Dsize')
+    pass
         
